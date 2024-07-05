@@ -1,25 +1,23 @@
-import { getDatabase,ref,set } from 'firebase/database'
-import {app} from "./firebase"
-import './App.css'
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import "./App.css";
+import { app } from "./firebase";
+import Signup from "./pages/Signup";
+import Signin from "./pages/Signin";
 
-const db = getDatabase(app);
+const auth = getAuth(app);
+
 
 function App() {
- 
-  const putData = () => {
-    set(ref(db, 'users/shobuj'), {
-      id: 1,
-      name: "Shobuj Das",
-      age:21,
-    })
-  }
+  const signupUser = () => {
+    createUserWithEmailAndPassword(auth, "shobujd6@gmail.com", "shobuj@123").then((value)=>console.log(value));
+  };
 
   return (
-    <>
-      <h1>Wellcome to fire base </h1>
-      <button onClick={putData}>Put Dada</button>
-    </>
-  )
+    <div className="App">
+      <Signup />
+      <Signin/>
+    </div>
+  );
 }
 
-export default App
+export default App;
