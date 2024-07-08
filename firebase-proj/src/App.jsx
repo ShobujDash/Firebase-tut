@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useFirebase } from "./context/Firebase"; 
+import { useFirebase } from "./context/Firebase";
 
 function App() {
   const firebase = useFirebase();
@@ -21,11 +21,12 @@ function App() {
         type="password"
         placeholder="Enter password"
       />
-      <button onClick={() => {
-         firebase.signupUserWithEmailAndPassword(email, password);
-         firebase.putData("users/" + "shobujdas", { email, password });
-      }
-      }>
+      <button
+        onClick={() => {
+          firebase.signupUserWithEmailAndPassword(email, password);
+          firebase.putData("users/" + "shobujdas", { email, password });
+        }}
+      >
         Signup
       </button>
     </>
