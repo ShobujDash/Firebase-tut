@@ -1,31 +1,30 @@
-import React, { useState,useEffect } from 'react'
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import {useNavigate} from 'react-router-dom'
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-import { useFirebase } from '../context/Firebase'; 
+import { useFirebase } from "../context/Firebase";
 
-function Register() {
-
+function Login() {
   const firebase = useFirebase();
   const navigate = useNavigate();
-  
+
   const [eamil, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-   useEffect(() => {
-     if (firebase.isLoggedIn) {
-       // navigate to home
-       navigate("/");
-     }
-   }, [firebase, navigate]);
+  useEffect(() => {
+    if (firebase.isLoggedIn) {
+      // navigate to home
+      navigate("/")
+    }
+  },[firebase,navigate])
 
-  const handleSubmit= async (e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("singin up a suser")
-    const result = await firebase.signupUserWithEmailAndPassword(eamil, password);
-    console.log("successfull",result)
-  }
+    console.log("Login a user");
+    const result = await firebase.signInUserWithEmailAndPass(eamil, password);
+    console.log("successfull", result);
+  };
 
   return (
     <div className="container mt-5">
@@ -38,9 +37,6 @@ function Register() {
             type="email"
             placeholder="Enter email"
           />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -53,11 +49,15 @@ function Register() {
           />
         </Form.Group>
         <Button variant="primary" type="submit">
-          Create Account
+          Login
         </Button>
       </Form>
+      <h1 className="mt-5 mt-6"> OR</h1>
+      <Button onClick={firebase.signinWithGoogle} variant="danger">
+        Signin With Google
+      </Button>
     </div>
   );
 }
 
-export default Register
+export default Login;
